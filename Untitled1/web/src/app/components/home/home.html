@@ -1,0 +1,1 @@
+<div>	<h1>Mon blog</h1>  	<div *ngIf="posts" class="posts">  		<div *ngFor="#post of posts" class="post">	  		<h2 class="title">{{post.title}} <small>{{post.displayDate}}</small></h2>	  		<p class="summary">{{post.summary}}</p>	  		<a class="more" href="{{post.url}}">Read More…</a>	  	</div>	</div></div>

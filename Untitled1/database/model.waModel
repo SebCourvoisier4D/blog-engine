@@ -1,0 +1,276 @@
+{
+	"toJSON": true,
+	"extraProperties": {
+		"version": "2",
+		"classes": {
+			"Post": {
+				"panelColor": "#548DD4",
+				"panel": {
+					"isOpen": "true",
+					"pathVisible": true,
+					"position": {
+						"X": 25,
+						"Y": 20
+					}
+				}
+			},
+			"Tag": {
+				"panelColor": "#8DB3E2",
+				"panel": {
+					"isOpen": "true",
+					"pathVisible": true,
+					"position": {
+						"X": 772,
+						"Y": 83
+					}
+				}
+			},
+			"Comment": {
+				"panelColor": "#C3D69B",
+				"panel": {
+					"isOpen": "true",
+					"pathVisible": true,
+					"position": {
+						"X": 462,
+						"Y": 343
+					}
+				}
+			},
+			"TagCloud": {
+				"panelColor": "#B8CCE4",
+				"panel": {
+					"isOpen": "true",
+					"pathVisible": true,
+					"position": {
+						"X": 452,
+						"Y": 86
+					}
+				}
+			}
+		},
+		"model": {
+			"scriptMode": "manual",
+			"workspaceLeft": 0,
+			"workspaceTop": 0,
+			"relationCurve": {
+				"run": true,
+				"mode": 1
+			},
+			"lastScriptLocation": {
+				"Post": {
+					"computed": "Post/Post-events.js"
+				},
+				"Comment": {
+					"computed": "Comment/Comment-events.js"
+				}
+			}
+		}
+	},
+	"dataClasses": [
+		{
+			"name": "Comment",
+			"className": "Comment",
+			"collectionName": "CommentCollection",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "author",
+					"kind": "storage",
+					"scope": "public",
+					"type": "string"
+				},
+				{
+					"name": "content",
+					"kind": "storage",
+					"scope": "public",
+					"type": "string"
+				},
+				{
+					"name": "date",
+					"kind": "storage",
+					"scope": "public",
+					"type": "date",
+					"simpleDate": false
+				},
+				{
+					"name": "post",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Post",
+					"path": "Post"
+				},
+				{
+					"name": "displayDate",
+					"kind": "calculated",
+					"scope": "public",
+					"type": "string",
+					"scriptKind": "javascript",
+					"onGet": [
+						{
+							"from": "$mainModel.Comment.displayDate.onGet",
+							"userDefined": true
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"className": "Post",
+			"collectionName": "PostCollection",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "title",
+					"kind": "storage",
+					"scope": "public",
+					"type": "string"
+				},
+				{
+					"name": "summary",
+					"kind": "storage",
+					"scope": "public",
+					"type": "string"
+				},
+				{
+					"name": "content",
+					"kind": "storage",
+					"scope": "public",
+					"type": "string"
+				},
+				{
+					"name": "date",
+					"kind": "storage",
+					"scope": "public",
+					"type": "date",
+					"simpleDate": false
+				},
+				{
+					"name": "comments",
+					"kind": "relatedEntities",
+					"matchColumn": "commentCollection",
+					"scope": "public",
+					"type": "CommentCollection",
+					"reversePath": true,
+					"path": "post"
+				},
+				{
+					"name": "tagClouds",
+					"kind": "relatedEntities",
+					"matchColumn": "tagCloudCollection",
+					"scope": "public",
+					"type": "TagCloudCollection",
+					"reversePath": true,
+					"path": "post"
+				},
+				{
+					"name": "url",
+					"kind": "calculated",
+					"scope": null,
+					"type": "string",
+					"scriptKind": "javascript",
+					"onGet": [
+						{
+							"from": "$mainModel.Post.url.onGet",
+							"userDefined": true
+						}
+					]
+				},
+				{
+					"name": "displayDate",
+					"kind": "calculated",
+					"scope": "public",
+					"type": "string",
+					"scriptKind": "javascript",
+					"onGet": [
+						{
+							"from": "$mainModel.Post.displayDate.onGet",
+							"userDefined": true
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Tag",
+			"className": "Tag",
+			"collectionName": "TagCollection",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "name",
+					"kind": "storage",
+					"scope": "public",
+					"type": "string"
+				},
+				{
+					"name": "tagClouds",
+					"kind": "relatedEntities",
+					"matchColumn": "tagCloudCollection",
+					"scope": "public",
+					"type": "TagCloudCollection",
+					"reversePath": true,
+					"path": "tag"
+				}
+			]
+		},
+		{
+			"name": "TagCloud",
+			"className": "TagCloud",
+			"collectionName": "TagCloudCollection",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "post",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Post",
+					"path": "Post"
+				},
+				{
+					"name": "tag",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Tag",
+					"path": "Tag"
+				}
+			]
+		}
+	]
+}
